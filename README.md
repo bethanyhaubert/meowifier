@@ -12,3 +12,9 @@ We're going to try to stick to this:
 4. Controllers can instantiate only one object. Therefore, views can only know about one instance variable and views should only send messages to that object (`@object.collaborator.value` is not allowed).
 5. Avoid non-resource routes (So avoid `member`, `collection`, and one-off routes like `get "blah" => 'foo#bar'`).
 6. Avoid non-resource methods (aka ‘actions’) in controllers (So controller actions should only ever be index, show, new, create, edit, update, destroy).
+
+
+
+# Setup
+
+1. Run `redis server` before `bundle exec sidekiq`
