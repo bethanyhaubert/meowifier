@@ -40,6 +40,8 @@ group :development, :test do
 	gem 'rspec-rails', '~> 3.5'
 	gem 'factory_girl'
 	gem 'capybara'
+	gem 'pry'
+	gem 'pry-rails'
 
 end
 

@@ -13,3 +13,5 @@
 /tmp
 .env.local
 dump.rdb
+.DS_Store
+app/assets/songs/
