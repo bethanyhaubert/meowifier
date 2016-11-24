@@ -18,3 +18,7 @@ We're going to try to stick to this:
 # Setup
 
 1. Run `redis server` before `bundle exec sidekiq`
+
+## Running Tests
+
+You will need to run `bundle exec rake db:test:prepare` before tests can run.
