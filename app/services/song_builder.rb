@@ -39,7 +39,7 @@ private
 
 	def duration_of_individual_file(file)
 		reader = Reader.new(file)
-		(reader.total_duration.seconds * 1000) + reader.total_duration.milliseconds
+		(reader.total_duration.minutes * 60000) +(reader.total_duration.seconds * 1000) + reader.total_duration.milliseconds
 	end
 
 	def duration_adjustment
