@@ -5,13 +5,26 @@ class SongParser
 	end
 
 	def notes
-		@notes
+		@note_collection
 	end
 
 	private
 
 	def parse
 		response = HTTParty.get("https://api.sonicapi.com/analyze/melody?access_id=#{ENV['SONIC_API_ACCESS_ID']}&input_file=#{@song}")
-		@notes = response["response"]["melody_result"]["notes"]["note"]
+		@note_collection = response["response"]["melody_result"]["notes"]["note"]
+		append_array_with_note
+	end
+
+	def append_array_with_note
+		@note_collection.each do |note|
+			note_converter = NoteConverter.new(note["midi_pitch"])
+			note["note"] = note_converter.note
+		end
+		return @note_collection
+	end
+
+	def meows
+
 	end
 end

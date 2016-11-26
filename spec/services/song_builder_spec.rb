@@ -19,4 +19,13 @@ RSpec.describe SongBuilder do
 
     expect(song_builder.duration_of_song).to eq(8777)
 	end
+
+	it "creates the Game of Thrones theme" do
+		song = "https://s3.amazonaws.com/meowifier-staging/test_songs/got.mp3"
+		song_parser = SongParser.new(song)
+		parsed_song = song_parser.notes
+		song_builder = SongBuilder.new(parsed_song)
+
+		expect(song_builder)
+	end
 end

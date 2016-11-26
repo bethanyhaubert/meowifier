@@ -12,13 +12,13 @@ RSpec.describe NoteConverter do
     midi_num = 22
     note_converter = NoteConverter.new(midi_num)
 
-    expect(note_converter.note).to eq("a0#")
+    expect(note_converter.note).to eq("a#0")
 	end
 
   it "converts intermediate number to nearest note" do
     midi_num = 62.587276458740234375
     note_converter = NoteConverter.new(midi_num)
 
-    expect(note_converter.note).to eq("d4#")
+    expect(note_converter.note).to eq("d#4")
   end
 end
