@@ -1,5 +1,5 @@
 class NoteConverter
-	attr_reader :key_type, :key, :octave_to_raise_by
+	attr_reader :key_type, :key, :octave, :octave_to_raise_by
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -21,6 +21,7 @@ class NoteConverter
 
 		@key_type = set_key_type
 		@key = set_key
+		@octave = set_octave
 		@octave_to_raise_by = set_octave_to_raise_by
 	end
 
@@ -28,78 +29,18 @@ class NoteConverter
 		if @rounded_midi_num > 96
 			lower_octave
 		elsif @rounded_midi_num < 48
-			raise_octave
+			raise_note
 		else
 			@note
 		end
 	end
 
-	def raise_octave
-		if in_octave_3?
-			between_35_and_48
-		elsif	in_octave_2?
-			between_23_and_36
-		elsif in_octave_1?
-			less_than_24
-		end
-	end
-
-	def between_35_and_48
-		if key_type == "white"
-			raise_note_by_one_octave_for_two_characters
-		else
-			raise_note_by_one_octave_for_three_characters
-		end
-	end
-
-	def between_23_and_36
-		if key_type == "white"
-			raise_note_by_two_octaves_for_two_characters
-		else
-			raise_note_by_two_octaves_for_three_characters
-		end
-	end
-
-	def less_than_24
-		if key_type == "white"
-			raise_note_by_three_octaves_for_two_characters
-		else
-			raise_note_by_three_octaves_for_three_characters
-		end
-	end
-
-	
-
 	def raised_octave
-		(@note[-1].to_i + octave_to_raise_by).to_s
+		octave + octave_to_raise_by
 	end
 
 	def raise_note
-		@note = key + raised_octave
-	end
-
-	def raise_note_by_one_octave_for_two_characters
-		raise_note
-	end
-
-	def raise_note_by_one_octave_for_three_characters
-		raise_note
-	end
-
-	def raise_note_by_two_octaves_for_two_characters
-		raise_note
-	end
-
-	def raise_note_by_two_octaves_for_three_characters
-		raise_note
-	end
-
-	def raise_note_by_three_octaves_for_two_characters
-		raise_note
-	end
-
-	def raise_note_by_three_octaves_for_three_characters
-		raise_note
+		@note = "#{key}#{raised_octave}"
 	end
 
 	def lower_octave
@@ -142,6 +83,10 @@ class NoteConverter
 		else
 			@note[0,2]
 		end
+	end
+
+	def set_octave
+		@note[-1].to_i
 	end
 
 	def set_octave_to_raise_by
