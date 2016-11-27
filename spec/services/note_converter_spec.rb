@@ -47,6 +47,6 @@ RSpec.describe NoteConverter do
 		midi_num = 102
 		note_converter = NoteConverter.new(midi_num)
 
-		expect(note_converter.note).to eq("f#6")
+		expect(note_converter.note).to eq ("f#6")
 	end
 end

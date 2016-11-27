@@ -1,4 +1,5 @@
 class NoteConverter
+
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
 		 "36" => "c2", "37" => "c#2", "38" => "d2", "39" => "d#2", "40" => "e2", "41" => "f2", "42" => "f#2", "43" => "g2",
@@ -29,17 +30,17 @@ class NoteConverter
 	end
 
 	def raise_octave
-		if @rounded_midi_num > 35 && @rounded_midi_num < 48
+		if in_octave_3?
 			between_35_and_48
-		elsif	@rounded_midi_num > 23 && @rounded_midi_num < 36
+		elsif	in_octave_2?
 			between_23_and_36
-		elsif @rounded_midi_num < 24
+		elsif in_octave_1?
 			less_than_24
 		end
 	end
 
 	def between_35_and_48
-		if @note.length == 2
+		if key_type == "white"
 			raise_note_by_one_octave_for_two_characters
 		else
 			raise_note_by_one_octave_for_three_characters
@@ -47,7 +48,7 @@ class NoteConverter
 	end
 
 	def between_23_and_36
-		if @note.length == 2
+		if key_type == "white"
 			raise_note_by_two_octaves_for_two_characters
 		else
 			raise_note_by_two_octaves_for_three_characters
@@ -55,10 +56,18 @@ class NoteConverter
 	end
 
 	def less_than_24
-		if @note.length == 2
+		if key_type == "white"
 			raise_note_by_three_octaves_for_two_characters
 		else
 			raise_note_by_three_octaves_for_three_characters
+		end
+	end
+
+	def key_type
+		if @note.length == 2
+			"white"
+		elsif @note.length == 3
+			"black"
 		end
 	end
 
@@ -67,31 +76,35 @@ class NoteConverter
 	end
 
 	def raise_note_by_one_octave_for_two_characters
-		@note = @note[0] + raised_note(1)
+		@note = key(key_type) + raised_note(1)
 	end
 
 	def raise_note_by_one_octave_for_three_characters
-		@note = @note[0,2] + raised_note(1)
+		@note = key(key_type) + raised_note(1)
 	end
 
 	def raise_note_by_two_octaves_for_two_characters
-		@note = @note[0] + raised_note(2)
+		@note = key(key_type) + raised_note(2)
 	end
 
 	def raise_note_by_two_octaves_for_three_characters
-		@note = @note[0,2] + raised_note(2)
+		@note = key(key_type) + raised_note(2)
 	end
 
 	def raise_note_by_three_octaves_for_two_characters
-		@note = @note[0] + raised_note(3)
+		@note = key(key_type) + raised_note(3)
 	end
 
 	def raise_note_by_three_octaves_for_three_characters
-		@note = @note[0,2] + raised_note(3)
+		@note = key(key_type) + raised_note(3)
 	end
 
-	def key()
-
+	def key(color)
+		if color == "white"
+			@note[0]
+		else
+			@note[0,2]
+		end
 	end
 
 	def lower_octave
@@ -104,5 +117,19 @@ class NoteConverter
 				last = @note[-1].to_i - 1
 				@note = first + last.to_s
 		end
+	end
+
+	private
+
+	def in_octave_1?
+		@rounded_midi_num < 24
+	end
+
+	def in_octave_2?
+		@rounded_midi_num > 23 && @rounded_midi_num < 36
+	end
+
+	def in_octave_3?
+		@rounded_midi_num > 35 && @rounded_midi_num < 48
 	end
 end
