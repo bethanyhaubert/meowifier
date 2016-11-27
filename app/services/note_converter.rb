@@ -27,7 +27,7 @@ class NoteConverter
 
 	def note
 		if in_octave_7?
-			lower_octave
+			lower_note
 		elsif in_octaves_1_to_3?
 			raise_note
 		else
@@ -39,20 +39,16 @@ class NoteConverter
 		octave + octave_to_raise_by
 	end
 
+	def lowered_octave
+		octave - 1
+	end
+
 	def raise_note
 		@note = "#{key}#{raised_octave}"
 	end
 
-	def lower_octave
-			if @note.length == 2
-				first = @note[0]
-				last = @note[-1].to_i - 1
-				@note = first + last.to_s
-			else
-				first = @note[0,2]
-				last = @note[-1].to_i - 1
-				@note = first + last.to_s
-		end
+	def lower_note
+		@note = "#{key}#{lowered_octave}"
 	end
 
 	private
