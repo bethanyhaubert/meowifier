@@ -62,46 +62,36 @@ class NoteConverter
 		end
 	end
 
-	def raise_note(octave)
-		first = @note[0]
-		last = @note[-1].to_i + 1
-		@note = first + last.to_s
+	def raised_note(octave)
+		(@note[-1].to_i + octave).to_s
 	end
 
 	def raise_note_by_one_octave_for_two_characters
-		first = @note[0]
-		last = @note[-1].to_i + 1
-		@note = first + last.to_s
+		@note = @note[0] + raised_note(1)
 	end
 
 	def raise_note_by_one_octave_for_three_characters
-		first = @note[0,2]
-		last = @note[-1].to_i + 1
-		@note = first + last.to_s
+		@note = @note[0,2] + raised_note(1)
 	end
 
 	def raise_note_by_two_octaves_for_two_characters
-		first = @note[0]
-		last = @note[-1].to_i + 2
-		@note = first + last.to_s
+		@note = @note[0] + raised_note(2)
 	end
 
 	def raise_note_by_two_octaves_for_three_characters
-		first = @note[0,2]
-		last = @note[-1].to_i + 2
-		@note = first + last.to_s
+		@note = @note[0,2] + raised_note(2)
 	end
 
 	def raise_note_by_three_octaves_for_two_characters
-		first = @note[0]
-		last = @note[-1].to_i + 3
-		@note = first + last.to_s
+		@note = @note[0] + raised_note(3)
 	end
 
 	def raise_note_by_three_octaves_for_three_characters
-		first = @note[0,2]
-		last = @note[-1].to_i + 3
-		@note = first + last.to_s
+		@note = @note[0,2] + raised_note(3)
+	end
+
+	def key()
+
 	end
 
 	def lower_octave
