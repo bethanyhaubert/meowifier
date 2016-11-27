@@ -60,19 +60,11 @@ class NoteConverter
 	end
 
 	def set_key_type
-		if @raw_note.length == 2
-			"white"
-		elsif @raw_note.length == 3
-			"black"
-		end
+		(@raw_note.length == 2) ? "white" : "black"
 	end
 
 	def set_key
-		if key_type == "white"
-			@raw_note[0]
-		else
-			@raw_note[0,2]
-		end
+		(key_type == "white") ? @raw_note[0] : @raw_note[0,2]
 	end
 
 	def set_octave
@@ -92,10 +84,6 @@ class NoteConverter
 	end
 
 	def set_note
-		if in_octaves_4_to_6?
-			NOTE_MAPPINGS[@midi_num]
-		else
-			change_note
-		end
+		in_octaves_4_to_6? ? NOTE_MAPPINGS[@midi_num] : change_note
 	end
 end
