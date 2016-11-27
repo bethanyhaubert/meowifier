@@ -1,5 +1,5 @@
 class NoteConverter
-	attr_reader :key_type, :key, :octave, :octave_to_raise_by
+	attr_reader :key_type, :key, :octave, :octave_modifier
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -22,33 +22,25 @@ class NoteConverter
 		@key_type = set_key_type
 		@key = set_key
 		@octave = set_octave
-		@octave_to_raise_by = set_octave_to_raise_by
+		@octave_modifier = set_octave_modifier
 	end
 
 	def note
 		if in_octave_7?
-			lower_note
+			change_note
 		elsif in_octaves_1_to_3?
-			raise_note
+			change_note
 		else
 			@note
 		end
 	end
 
-	def raised_octave
-		octave + octave_to_raise_by
+	def new_octave
+		octave + octave_modifier
 	end
 
-	def lowered_octave
-		octave - 1
-	end
-
-	def raise_note
-		@note = "#{key}#{raised_octave}"
-	end
-
-	def lower_note
-		@note = "#{key}#{lowered_octave}"
+	def change_note
+		@note = "#{key}#{new_octave}"
 	end
 
 	private
@@ -93,13 +85,15 @@ class NoteConverter
 		@note[-1].to_i
 	end
 
-	def set_octave_to_raise_by
+	def set_octave_modifier
 		if in_octave_1?
 			3
 		elsif in_octave_2?
 			2
 		elsif in_octave_3?
 			1
+		elsif in_octave_7?
+			-1
 		end
 	end
 end
