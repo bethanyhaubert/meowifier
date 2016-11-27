@@ -30,36 +30,78 @@ class NoteConverter
 
 	def raise_octave
 		if @rounded_midi_num > 35 && @rounded_midi_num < 48
-			if @note.length == 2
-				first = @note[0]
-				last = @note[-1].to_i + 1
-				@note = first + last.to_s
-			else
-				first = @note[0,2]
-				last = @note[-1].to_i + 1
-				@note = first + last.to_s
-			end
+			between_35_and_48
 		elsif	@rounded_midi_num > 23 && @rounded_midi_num < 36
-			if @note.length == 2
-				first = @note[0]
-				last = @note[-1].to_i + 2
-				@note = first + last.to_s
-			else
-				first = @note[0,2]
-				last = @note[-1].to_i + 2
-				@note = first + last.to_s
-			end
+			between_23_and_36
 		elsif @rounded_midi_num < 24
-			if @note.length == 2
-				first = @note[0]
-				last = @note[-1].to_i + 3
-				@note = first + last.to_s
-			else
-				first = @note[0,2]
-				last = @note[-1].to_i + 3
-				@note = first + last.to_s
-			end
+			less_than_24
 		end
+	end
+
+	def between_35_and_48
+		if @note.length == 2
+			raise_note_by_one_octave_for_two_characters
+		else
+			raise_note_by_one_octave_for_three_characters
+		end
+	end
+
+	def between_23_and_36
+		if @note.length == 2
+			raise_note_by_two_octaves_for_two_characters
+		else
+			raise_note_by_two_octaves_for_three_characters
+		end
+	end
+
+	def less_than_24
+		if @note.length == 2
+			raise_note_by_three_octaves_for_two_characters
+		else
+			raise_note_by_three_octaves_for_three_characters
+		end
+	end
+
+	def raise_note(octave)
+		first = @note[0]
+		last = @note[-1].to_i + 1
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_one_octave_for_two_characters
+		first = @note[0]
+		last = @note[-1].to_i + 1
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_one_octave_for_three_characters
+		first = @note[0,2]
+		last = @note[-1].to_i + 1
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_two_octaves_for_two_characters
+		first = @note[0]
+		last = @note[-1].to_i + 2
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_two_octaves_for_three_characters
+		first = @note[0,2]
+		last = @note[-1].to_i + 2
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_three_octaves_for_two_characters
+		first = @note[0]
+		last = @note[-1].to_i + 3
+		@note = first + last.to_s
+	end
+
+	def raise_note_by_three_octaves_for_three_characters
+		first = @note[0,2]
+		last = @note[-1].to_i + 3
+		@note = first + last.to_s
 	end
 
 	def lower_octave
