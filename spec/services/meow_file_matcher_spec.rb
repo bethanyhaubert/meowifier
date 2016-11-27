@@ -12,8 +12,11 @@ RSpec.describe MeowFileMatcher do
 									]
 		meow_file_matcher = MeowFileMatcher.new(parsed_song)
 
-		expect(meow_file_matcher.meows).to eq(["#{Rails.root}/app/assets/meows/b3.wav", "#{Rails.root}/app/assets/meows/c3.wav",
-																					"#{Rails.root}/app/assets/meows/d3.wav", "#{Rails.root}/app/assets/meows/c-3.wav",
-																					"#{Rails.root}/app/assets/meows/c3.wav", "#{Rails.root}/app/assets/meows/a3.wav"])
+		expect(meow_file_matcher.meows).to eq(["#{Rails.root}/app/assets/meows/b3-#{Time.now}-0.wav",
+																					 "#{Rails.root}/app/assets/meows/c3-#{Time.now}-1.wav",
+																					"#{Rails.root}/app/assets/meows/d3-#{Time.now}-2.wav",
+																					 "#{Rails.root}/app/assets/meows/c-3-#{Time.now}-3.wav",
+																					"#{Rails.root}/app/assets/meows/c3-#{Time.now}-4.wav",
+																					 "#{Rails.root}/app/assets/meows/a3-#{Time.now}-5.wav"])
 	end
 end

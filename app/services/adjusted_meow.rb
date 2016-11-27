@@ -1,3 +1,4 @@
+require 'streamio-ffmpeg'
 require 'wavefile'
 include WaveFile
 
@@ -9,7 +10,7 @@ class AdjustedMeow
 	end
 
 	def adjust
-
+		meow = FFMPEG::Movie.new("#{Rails.root}/app/assets/meows/")
 	end
 
 	def duration_of_meow_in_seconds(meow)
