@@ -299,4 +299,17 @@ RSpec.describe SongBuilder do
 
 	# 	expect(song_builder.combine).to
 	end
+
+	# it "creates the Imperial Death March" do
+	# 	song = "https://s3.amazonaws.com/meowifier-staging/test_songs/star_wars.mp3"
+	# 	song_parser = SongParser.new(song)
+	# 	parsed_song = song_parser.notes
+	# 	meow_matcher = MeowFileMatcher.new(parsed_song)
+	# 	meows = meow_matcher.meows
+	# 	song_builder = SongBuilder.new(meows)
+	# 	song_builder.combine
+	#
+	# 	# 	expect(song_builder.combine).to
+	# end
+
 end
