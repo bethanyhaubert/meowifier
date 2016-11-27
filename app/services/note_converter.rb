@@ -1,5 +1,5 @@
 class NoteConverter
-	attr_reader :key_type, :key
+	attr_reader :key_type, :key, :octave_to_raise_by
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -21,6 +21,7 @@ class NoteConverter
 
 		@key_type = set_key_type
 		@key = set_key
+		@octave_to_raise_by = set_octave_to_raise_by
 	end
 
 	def note
@@ -69,32 +70,36 @@ class NoteConverter
 
 	
 
-	def raised_note(octave)
-		(@note[-1].to_i + octave).to_s
+	def raised_octave
+		(@note[-1].to_i + octave_to_raise_by).to_s
+	end
+
+	def raise_note
+		@note = key + raised_octave
 	end
 
 	def raise_note_by_one_octave_for_two_characters
-		@note = key + raised_note(1)
+		raise_note
 	end
 
 	def raise_note_by_one_octave_for_three_characters
-		@note = key + raised_note(1)
+		raise_note
 	end
 
 	def raise_note_by_two_octaves_for_two_characters
-		@note = key + raised_note(2)
+		raise_note
 	end
 
 	def raise_note_by_two_octaves_for_three_characters
-		@note = key + raised_note(2)
+		raise_note
 	end
 
 	def raise_note_by_three_octaves_for_two_characters
-		@note = key + raised_note(3)
+		raise_note
 	end
 
 	def raise_note_by_three_octaves_for_three_characters
-		@note = key + raised_note(3)
+		raise_note
 	end
 
 	def lower_octave
@@ -136,6 +141,16 @@ class NoteConverter
 			@note[0]
 		else
 			@note[0,2]
+		end
+	end
+
+	def set_octave_to_raise_by
+		if in_octave_1?
+			3
+		elsif in_octave_2?
+			2
+		elsif in_octave_3?
+			1
 		end
 	end
 end
