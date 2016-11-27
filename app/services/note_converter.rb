@@ -26,9 +26,9 @@ class NoteConverter
 	end
 
 	def note
-		if @rounded_midi_num > 96
+		if in_octave_7?
 			lower_octave
-		elsif @rounded_midi_num < 48
+		elsif in_octaves_1_to_3?
 			raise_note
 		else
 			@note
@@ -67,6 +67,14 @@ class NoteConverter
 
 	def in_octave_3?
 		@rounded_midi_num > 35 && @rounded_midi_num < 48
+	end
+
+	def in_octaves_1_to_3?
+		in_octave_1? || in_octave_2? || in_octave_3?
+	end
+
+	def in_octave_7?
+		@rounded_midi_num > 96
 	end
 
 	def set_key_type
