@@ -1,5 +1,5 @@
 class NoteConverter
-	attr_reader :note, :key_type, :key, :octave, :octave_modifier
+	attr_reader :raw_note, :note, :key_type, :key, :octave, :octave_modifier
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -17,7 +17,7 @@ class NoteConverter
 	def initialize(midi_num)
 		@rounded_midi_num = midi_num.to_f.round
 		@midi_num = @rounded_midi_num.to_i.to_s
-
+		@raw_note = NOTE_MAPPINGS[@midi_num]
 		@key_type = set_key_type
 		@key = set_key
 		@octave = set_octave
@@ -60,23 +60,23 @@ class NoteConverter
 	end
 
 	def set_key_type
-		if @note.length == 2
+		if @raw_note.length == 2
 			"white"
-		elsif @note.length == 3
+		elsif @raw_note.length == 3
 			"black"
 		end
 	end
 
 	def set_key
 		if key_type == "white"
-			@note[0]
+			@raw_note[0]
 		else
-			@note[0,2]
+			@raw_note[0,2]
 		end
 	end
 
 	def set_octave
-		@note[-1].to_i
+		@raw_note[-1].to_i
 	end
 
 	def set_octave_modifier
