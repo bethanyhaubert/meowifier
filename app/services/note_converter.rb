@@ -1,5 +1,5 @@
 class NoteConverter
-	attr_reader :key_type, :key, :octave, :octave_modifier
+	attr_reader :note, :key_type, :key, :octave, :octave_modifier
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -17,23 +17,15 @@ class NoteConverter
 	def initialize(midi_num)
 		@rounded_midi_num = midi_num.to_f.round
 		@midi_num = @rounded_midi_num.to_i.to_s
-		@note = NOTE_MAPPINGS[@midi_num]
 
 		@key_type = set_key_type
 		@key = set_key
 		@octave = set_octave
 		@octave_modifier = set_octave_modifier
+		@note = set_note
 	end
 
-	def note
-		if in_octave_7?
-			change_note
-		elsif in_octaves_1_to_3?
-			change_note
-		else
-			@note
-		end
-	end
+	private
 
 	def new_octave
 		octave + octave_modifier
@@ -42,8 +34,6 @@ class NoteConverter
 	def change_note
 		@note = "#{key}#{new_octave}"
 	end
-
-	private
 
 	def in_octave_1?
 		@rounded_midi_num < 24
@@ -59,6 +49,10 @@ class NoteConverter
 
 	def in_octaves_1_to_3?
 		in_octave_1? || in_octave_2? || in_octave_3?
+	end
+
+	def in_octaves_4_to_6?
+		@rounded_midi_num > 47 && @rounded_midi_num < 97
 	end
 
 	def in_octave_7?
@@ -94,6 +88,14 @@ class NoteConverter
 			1
 		elsif in_octave_7?
 			-1
+		end
+	end
+
+	def set_note
+		if in_octaves_4_to_6?
+			NOTE_MAPPINGS[@midi_num]
+		else
+			change_note
 		end
 	end
 end
