@@ -11,7 +11,7 @@ class MeowFileMatcher
 		notes = []
 		index = 0
 		@formatted_notes.each do |note|
-			file = "#{Rails.root}/app/assets/meows/#{note["note"]}-#{Time.now}-#{index}.wav"
+			file = "#{Rails.root}/app/assets/outputs/#{note["note"]}-#{Time.now}-#{index}.wav"
 			adjusted_note = FFMPEG::Movie.new("#{Rails.root}/app/assets/meows/#{note["note"]}.wav")
 			options = {convert_duration: note["duration"]}
 			adjusted_note.transcode(file, options)
