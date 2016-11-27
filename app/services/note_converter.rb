@@ -1,4 +1,5 @@
 class NoteConverter
+	attr_reader :key_type, :key
 
 	NOTE_MAPPINGS = {"21" => "a0", "22" => "a#0", "23" => "b0", "24" => "c1", "25" => "c#1", "26" => "d1", "27" => "d#1",
 		 "28" => "e1", "29" => "f1", "30" => "f#1", "31" => "g1", "32" => "g#1", "33" => "a1", "34" => "a#1", "35" => "b1",
@@ -17,6 +18,9 @@ class NoteConverter
 		@rounded_midi_num = midi_num.to_f.round
 		@midi_num = @rounded_midi_num.to_i.to_s
 		@note = NOTE_MAPPINGS[@midi_num]
+
+		@key_type = set_key_type
+		@key = set_key
 	end
 
 	def note
@@ -63,48 +67,34 @@ class NoteConverter
 		end
 	end
 
-	def key_type
-		if @note.length == 2
-			"white"
-		elsif @note.length == 3
-			"black"
-		end
-	end
+	
 
 	def raised_note(octave)
 		(@note[-1].to_i + octave).to_s
 	end
 
 	def raise_note_by_one_octave_for_two_characters
-		@note = key(key_type) + raised_note(1)
+		@note = key + raised_note(1)
 	end
 
 	def raise_note_by_one_octave_for_three_characters
-		@note = key(key_type) + raised_note(1)
+		@note = key + raised_note(1)
 	end
 
 	def raise_note_by_two_octaves_for_two_characters
-		@note = key(key_type) + raised_note(2)
+		@note = key + raised_note(2)
 	end
 
 	def raise_note_by_two_octaves_for_three_characters
-		@note = key(key_type) + raised_note(2)
+		@note = key + raised_note(2)
 	end
 
 	def raise_note_by_three_octaves_for_two_characters
-		@note = key(key_type) + raised_note(3)
+		@note = key + raised_note(3)
 	end
 
 	def raise_note_by_three_octaves_for_three_characters
-		@note = key(key_type) + raised_note(3)
-	end
-
-	def key(color)
-		if color == "white"
-			@note[0]
-		else
-			@note[0,2]
-		end
+		@note = key + raised_note(3)
 	end
 
 	def lower_octave
@@ -131,5 +121,21 @@ class NoteConverter
 
 	def in_octave_3?
 		@rounded_midi_num > 35 && @rounded_midi_num < 48
+	end
+
+	def set_key_type
+		if @note.length == 2
+			"white"
+		elsif @note.length == 3
+			"black"
+		end
+	end
+
+	def set_key
+		if key_type == "white"
+			@note[0]
+		else
+			@note[0,2]
+		end
 	end
 end
