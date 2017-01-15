@@ -15,10 +15,9 @@ class MeowFileMatcher
 			input_file = "#{Rails.root}/app/assets/meows/#{note["note"]}.wav"
 			note_to_adjust = FFMPEG::Movie.new("#{Rails.root}/app/assets/meows/#{note["note"]}.wav")
 			note_duration = note["duration"]
-			transcode_params = ["-ss", "0", "-t", note_duration]
 
 			if note_to_adjust.duration >= note["duration"].to_f
-				note_to_adjust.transcode(output_file, transcode_params)
+				note_to_adjust.transcode(output_file, ["-ss", "0", "-t", note_duration])
 			else
 				loops = number_of_loops(note_to_adjust.duration, note["duration"].to_f).to_s
 				looped_file = "#{Rails.root}/app/assets/loops/#{note["note"]}-#{Time.now}-#{index}.wav"
