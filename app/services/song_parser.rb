@@ -1,3 +1,4 @@
+# This class makes a request to an API, receives the response, and then creates a collection of notes.
 class SongParser
 	def initialize(song)
 		@song = song
@@ -22,9 +23,5 @@ class SongParser
 			note["note"] = note_converter.note
 		end
 		return @note_collection
-	end
-
-	def meows
-
 	end
 end

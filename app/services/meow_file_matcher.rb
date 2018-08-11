@@ -1,11 +1,12 @@
 require 'streamio-ffmpeg'
 
+# This class accepts a parsed song and then maps the correct cat meow file to each note,
+# while adjusting for length, then pushes it to an output file.
 class MeowFileMatcher
 	def initialize(parsed_song)
 		@parsed_song = parsed_song
 		@formatted_notes = format_notes
 	end
-
 
 	def meows
 		notes = []

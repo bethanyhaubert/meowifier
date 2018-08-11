@@ -22,3 +22,7 @@ We're going to try to stick to this:
 ## Running Tests
 
 You will need to run `bundle exec rake db:test:prepare` before tests can run.
+
+## Command to use while developing
+
+python audio_to_midi_melodia.py ~/Desktop/journey.wav ~/Desktop/journey.mid 60 --smooth 0.25 --minduration 0.1
