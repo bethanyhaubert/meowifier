@@ -67,6 +67,7 @@ class NoteConverter
 
 	def above_octave_7?
 		@rounded_midi_num > 108
+	end
 
 	def set_key_type
 		if @raw_note == nil
