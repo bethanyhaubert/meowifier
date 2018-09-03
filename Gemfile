@@ -5,8 +5,9 @@ gem "dotenv-rails", :groups => [:development, :test]
 gem "rails", "5.2.1"
 ruby "2.4.4"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 0.15"
+gem "pg", "~> 0.20"
 gem "sidekiq"
+
 # Use SCSS for stylesheets
 # gem "sass-rails", "~> 5.0"
 # Use Uglifier as compressor for JavaScript assets
