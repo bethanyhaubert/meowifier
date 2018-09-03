@@ -58,12 +58,18 @@ class NoteConverter
 	end
 
 	def in_octave_7?
-		@rounded_midi_num > 96
+		@rounded_midi_num > 95 && @rounded_midi_num < 109
 	end
+
+	def in_octave_2_to_7?
+		@rounded_midi_num > 23 && @rounded_midi_num < 109
+	end
+
+	def above_octave_7?
+		@rounded_midi_num > 108
 
 	def set_key_type
 		if @raw_note == nil
-			binding.pry
 		else
 			(@raw_note.length == 2) ? "white" : "black"
 		end
@@ -79,17 +85,11 @@ class NoteConverter
 
 	def set_octave_modifier
 		if in_octave_1?
-			3
-		elsif in_octave_2?
 			2
-		elsif in_octave_3?
-			1
-		elsif in_octave_7?
-			-1
 		end
 	end
 
 	def set_note
-		in_octaves_4_to_6? ? NOTE_MAPPINGS[@midi_num] : change_note
+		in_octaves_2_to_7? ? NOTE_MAPPINGS[@midi_num] : change_note
 	end
 end

@@ -5,13 +5,13 @@ require 'streamio-ffmpeg'
 class MeowFileMatcher
 	def initialize(parsed_song)
 		@parsed_song = parsed_song
-		@formatted_notes = format_notes
+		# @formatted_notes = format_notes
 	end
 
 	def meows
 		notes = []
 		index = 0
-		@formatted_notes.each do |note|
+		@parsed_song.each do |note|
 			output_file = "#{Rails.root}/app/assets/outputs/#{note["note"]}-#{Time.now}-#{index}.wav"
 			input_file = "#{Rails.root}/app/assets/meows/#{note["note"]}.wav"
 			note_to_adjust = FFMPEG::Movie.new("#{Rails.root}/app/assets/meows/#{note["note"]}.wav")
