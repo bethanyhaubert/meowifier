@@ -1,16 +1,17 @@
 require 'streamio-ffmpeg'
 
+# This class accepts a parsed song and then maps the correct cat meow file to each note,
+# while adjusting for length, then pushes it to an output file.
 class MeowFileMatcher
 	def initialize(parsed_song)
 		@parsed_song = parsed_song
 		# @formatted_notes = format_notes
 	end
 
-
 	def meows
 		notes = []
 		index = 0
-		parsed_song.each do |note|
+		@parsed_song.each do |note|
 			output_file = "#{Rails.root}/app/assets/outputs/#{note["note"]}-#{Time.now}-#{index}.wav"
 			input_file = "#{Rails.root}/app/assets/meows/#{note["note"]}.wav"
 			note_to_adjust = FFMPEG::Movie.new("#{Rails.root}/app/assets/meows/#{note["note"]}.wav")

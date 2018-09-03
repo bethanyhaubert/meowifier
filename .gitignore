@@ -16,3 +16,4 @@ dump.rdb
 .DS_Store
 app/assets/songs/
 app/assets/outputs/
+.idea/*

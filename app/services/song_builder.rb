@@ -1,6 +1,8 @@
 require 'wavefile'
 include WaveFile
 
+# This class accepts a collections of audio files and combines it,
+# then saves the output as a new single audio file.
 class SongBuilder
 	OUTPUT_FORMAT = Format.new(:stereo, :pcm_16, 44100)
 	SAMPLE_FRAMES_PER_BUFFER = 4096
