@@ -3,6 +3,8 @@ require 'wavefile'
 include WaveFile
 
 # This class accepts a meow and a duration and adjusts it so that a new file is created with the correct length
+#
+# NOT CURRENTLY IN USE
 class AdjustedMeow
 	def initialize(meow, duration)
 		@meow = meow

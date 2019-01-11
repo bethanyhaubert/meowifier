@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SongParser do
-  it "parses the Game of Thrones theme" do
+  xit "parses the Game of Thrones theme" do
 		song = "https://s3.amazonaws.com/meowifier-staging/test_songs/got.mp3"
 		song_parser = SongParser.new(song)
 
