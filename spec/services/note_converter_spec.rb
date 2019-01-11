@@ -22,31 +22,17 @@ RSpec.describe NoteConverter do
     expect(note_converter.note).to eq("d#4")
 	end
 
-	it "raises the octave of a note by 3" do
+	it "raises the octave of a note by 1" do
 		midi_num = 22
 		note_converter = NoteConverter.new(midi_num)
 
-		expect(note_converter.note).to eq("a#3")
-	end
-
-	it "raises the octave of a note by 2" do
-		midi_num = 34
-		note_converter = NoteConverter.new(midi_num)
-
-		expect(note_converter.note).to eq("a#3")
-	end
-
-	it "raises the octave of a note by 1" do
-		midi_num = 46
-		note_converter = NoteConverter.new(midi_num)
-
-		expect(note_converter.note).to eq("a#3")
-	end
+		expect(note_converter.note).to eq("a#1")
+  end
 
 	it "lowers the octave of a note by 1" do
-		midi_num = 102
+		midi_num = 109
 		note_converter = NoteConverter.new(midi_num)
 
-		expect(note_converter.note).to eq ("f#6")
+		expect(note_converter.note).to eq("c#7")
 	end
 end
