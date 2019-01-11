@@ -14,7 +14,7 @@ class NoteConverter
 		 "83" => "b5", "84" =>"c6", "85" => "c#6", "86" => "d6", "87" => "d#6", "88" => "e6", "89" => "f6", "90" => "f#6",
 		 "91" => "g6", "92" => "g#6", "93" => "a6", "94" => "a#6", "95" => "b6", "96" => "c7", "97" => "c#7", "98" => "d7",
 		 "99" => "d#7", "100" => "e7", "101" => "f7", "102" => "f#7", "103" => "g7", "104" => "g#7", "105" => "a7",
-		 "106" => "a#7", "107" => "b7", "108" => "c8"}
+		 "106" => "a#7", "107" => "b7", "108" => "c8", "109" => "c#8", ""}
 
 	def initialize(midi_num)
 		@rounded_midi_num = midi_num.to_f.round
@@ -41,27 +41,7 @@ class NoteConverter
 		@rounded_midi_num < 24
 	end
 
-	def in_octave_2?
-		@rounded_midi_num > 23 && @rounded_midi_num < 36
-	end
-
-	def in_octave_3?
-		@rounded_midi_num > 35 && @rounded_midi_num < 48
-	end
-
-	def in_octaves_1_to_3?
-		in_octave_1? || in_octave_2? || in_octave_3?
-	end
-
-	def in_octaves_4_to_6?
-		@rounded_midi_num > 47 && @rounded_midi_num < 97
-	end
-
-	def in_octave_7?
-		@rounded_midi_num > 95 && @rounded_midi_num < 109
-	end
-
-	def in_octave_2_to_7?
+	def in_octaves_2_to_7?
 		@rounded_midi_num > 23 && @rounded_midi_num < 109
 	end
 
@@ -86,7 +66,9 @@ class NoteConverter
 
 	def set_octave_modifier
 		if in_octave_1?
-			2
+			1
+		elsif above_octave_7?
+			-1
 		end
 	end
 
