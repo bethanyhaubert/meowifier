@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "dotenv-rails", :groups => [:development, :test]
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "5.2.1"
-ruby "2.4.4"
+ruby "2.5.3"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 0.20"
 gem "sidekiq"
