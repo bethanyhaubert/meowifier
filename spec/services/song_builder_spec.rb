@@ -5,6 +5,7 @@ RSpec.describe SongBuilder do
 		file_1 = "#{Rails.root}/app/assets/other_meows/meows-beth/beth_C4.wav"
     file_2 = "#{Rails.root}/app/assets/other_meows/meows-beth/beth_D4.wav"
 		collection = [file_1, file_2]
+
 		song_builder = SongBuilder.new(collection)
 
 		expect(song_builder.duration_of_song).to eq(5851)
@@ -15,6 +16,7 @@ RSpec.describe SongBuilder do
     file_2 = "#{Rails.root}/app/assets/other_meows/meows-beth/beth_D4.wav"
     file_3 = "#{Rails.root}/app/assets/other_meows/meows-beth/beth_E4.wav"
     collection = [file_1, file_2, file_3]
+
     song_builder = SongBuilder.new(collection)
 
     expect(song_builder.duration_of_song).to eq(8777)
@@ -22,39 +24,40 @@ RSpec.describe SongBuilder do
 
 	it "creates Jingle Bells" do
 		parsed_song = [
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.5", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.5", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"g4"},
-										{"duration"=>"0.25", "note"=>"c4"},
-										{"duration"=>"0.25", "note"=>"d4"},
-										{"duration"=>"1.0", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"f4"},
-										{"duration"=>"0.25", "note"=>"f4"},
-										{"duration"=>"0.25", "note"=>"f4"},
-										{"duration"=>"0.25", "note"=>"f4"},
-										{"duration"=>"0.25", "note"=>"f4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.5", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.25", "note"=>"d4"},
-										{"duration"=>"0.25", "note"=>"d4"},
-										{"duration"=>"0.25", "note"=>"e4"},
-										{"duration"=>"0.5", "note"=>"d4"},
-										{"duration"=>"0.5", "note"=>"g4"},
-									]
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.5", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.5", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"g4"},
+			{"duration"=>"0.25", "note"=>"c4"},
+			{"duration"=>"0.25", "note"=>"d4"},
+			{"duration"=>"1.0", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"f4"},
+			{"duration"=>"0.25", "note"=>"f4"},
+			{"duration"=>"0.25", "note"=>"f4"},
+			{"duration"=>"0.25", "note"=>"f4"},
+			{"duration"=>"0.25", "note"=>"f4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.5", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.25", "note"=>"d4"},
+			{"duration"=>"0.25", "note"=>"d4"},
+			{"duration"=>"0.25", "note"=>"e4"},
+			{"duration"=>"0.5", "note"=>"d4"},
+			{"duration"=>"0.5", "note"=>"g4"},
+		]
 		meow_matcher = MeowFileMatcher.new(parsed_song)
 		meows = meow_matcher.meows
 
 		song_builder = SongBuilder.new(meows)
+
 		expect(song_builder.duration_of_song).to eq(8000)
 	end
 
-	xit "creates the Game of Thrones theme" do
+	it "creates the Game of Thrones theme" do
 		parsed_song = [
 			{"midi_pitch"=>"35.9934844970703125", "onset_time"=>"0.88172335600907025821", "duration"=>"0.061564625850340136404", "volume"=>"0.029758758842945098877", "note"=>"c3"},
 			{"midi_pitch"=>"23.974985122680664062", "onset_time"=>"0.97460317460317458238", "duration"=>"0.24471655328798186391", "volume"=>"0.042322281748056411743", "note"=>"c3"},
@@ -326,19 +329,17 @@ RSpec.describe SongBuilder do
 			{"midi_pitch"=>"22.634189605712890625", "onset_time"=>"95.06714285714285495", "duration"=>"0.31485260770975054267", "volume"=>"0.021274201571941375732", "note"=>"b3"},
 			{"midi_pitch"=>"19.611392974853515625", "onset_time"=>"95.425646258503405761", "duration"=>"0.34213151927437640554", "volume"=>"0.0057556871324777603149", "note"=>"g#3"},
 			{"midi_pitch"=>"26.369508743286132812", "onset_time"=>"95.794399092970522247", "duration"=>"0.94310657596371882949", "volume"=>"0.0038878903724253177643", "note"=>"d3"},
-{"midi_pitch"=>"48.023468017578125", "onset_time"=>"96.745102040816320255", "duration"=>"1.3216553287981860354", "volume"=>"0.001397938351146876812", "note"=>"c3"}]
+			{"midi_pitch"=>"48.023468017578125", "onset_time"=>"96.745102040816320255", "duration"=>"1.3216553287981860354", "volume"=>"0.001397938351146876812", "note"=>"c3"}]
 		meow_matcher = MeowFileMatcher.new(parsed_song)
 		meows = meow_matcher.meows
 
 		song_builder = SongBuilder.new(meows)
+    song_builder.combine
 
-	# 	expect(song_builder.combine).to
+		expect(song_builder.duration_of_song).to eq(91947)
 	end
 
-	xit "creates the Imperial Death March" do
-	# 	song = "https://s3.amazonaws.com/meowifier-staging/test_songs/star_wars.mp3"
-	# 	song_parser = SongParser.new(song)
-	# 	parsed_song = song_parser.notes
+	it "creates the Imperial Death March" do
 		parsed_song = [
 			{"midi_pitch"=>"42.983417510986328125", "onset_time"=>"0.71235827664399098413", "duration"=>"0.37755102040816324038", "volume"=>"0.0043950029648840427399", "note"=>"g3"},
 			{"midi_pitch"=>"42.8916168212890625", "onset_time"=>"1.1002267573696145053", "duration"=>"0.20594104308390023816", "volume"=>"0.00083022785838693380356", "note"=>"g3"},
@@ -1144,7 +1145,7 @@ RSpec.describe SongBuilder do
 		song_builder = SongBuilder.new(meows)
 		song_builder.combine
 
-	# 	 	expect(song_builder.combine).to
+		expect(song_builder.duration_of_song).to eq(167868)
 	end
 
 end
